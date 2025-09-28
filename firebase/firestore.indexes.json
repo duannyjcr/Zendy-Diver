@@ -1,0 +1,30 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "stop",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "id_delivery",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "stopNumber",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "fcm_tokens",
+      "fieldPath": "fcm_token",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
+}
