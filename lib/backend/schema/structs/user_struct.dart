@@ -15,6 +15,7 @@ class UserStruct extends FFFirebaseStruct {
     DateTime? createdTime,
     String? phoneNumber,
     bool? isDrive,
+    String? fcmToken,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _email = email,
         _displayName = displayName,
@@ -23,6 +24,7 @@ class UserStruct extends FFFirebaseStruct {
         _createdTime = createdTime,
         _phoneNumber = phoneNumber,
         _isDrive = isDrive,
+        _fcmToken = fcmToken,
         super(firestoreUtilData);
 
   // "email" field.
@@ -76,6 +78,13 @@ class UserStruct extends FFFirebaseStruct {
 
   bool hasIsDrive() => _isDrive != null;
 
+  // "fcm_token" field.
+  String? _fcmToken;
+  String get fcmToken => _fcmToken ?? '';
+  set fcmToken(String? val) => _fcmToken = val;
+
+  bool hasFcmToken() => _fcmToken != null;
+
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(
         email: data['email'] as String?,
         displayName: data['display_name'] as String?,
@@ -84,6 +93,7 @@ class UserStruct extends FFFirebaseStruct {
         createdTime: data['created_time'] as DateTime?,
         phoneNumber: data['phone_number'] as String?,
         isDrive: data['is_drive'] as bool?,
+        fcmToken: data['fcm_token'] as String?,
       );
 
   static UserStruct? maybeFromMap(dynamic data) =>
@@ -97,6 +107,7 @@ class UserStruct extends FFFirebaseStruct {
         'created_time': _createdTime,
         'phone_number': _phoneNumber,
         'is_drive': _isDrive,
+        'fcm_token': _fcmToken,
       }.withoutNulls;
 
   @override
@@ -128,6 +139,10 @@ class UserStruct extends FFFirebaseStruct {
         'is_drive': serializeParam(
           _isDrive,
           ParamType.bool,
+        ),
+        'fcm_token': serializeParam(
+          _fcmToken,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -168,6 +183,11 @@ class UserStruct extends FFFirebaseStruct {
           ParamType.bool,
           false,
         ),
+        fcmToken: deserializeParam(
+          data['fcm_token'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -182,12 +202,21 @@ class UserStruct extends FFFirebaseStruct {
         uid == other.uid &&
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
-        isDrive == other.isDrive;
+        isDrive == other.isDrive &&
+        fcmToken == other.fcmToken;
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [email, displayName, photoUrl, uid, createdTime, phoneNumber, isDrive]);
+  int get hashCode => const ListEquality().hash([
+        email,
+        displayName,
+        photoUrl,
+        uid,
+        createdTime,
+        phoneNumber,
+        isDrive,
+        fcmToken
+      ]);
 }
 
 UserStruct createUserStruct({
@@ -198,6 +227,7 @@ UserStruct createUserStruct({
   DateTime? createdTime,
   String? phoneNumber,
   bool? isDrive,
+  String? fcmToken,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -211,6 +241,7 @@ UserStruct createUserStruct({
       createdTime: createdTime,
       phoneNumber: phoneNumber,
       isDrive: isDrive,
+      fcmToken: fcmToken,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

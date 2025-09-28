@@ -71,6 +71,11 @@ class UserRecord extends FirestoreRecord {
   LatLng? get currentDriverLocation => _currentDriverLocation;
   bool hasCurrentDriverLocation() => _currentDriverLocation != null;
 
+  // "fcm_token" field.
+  String? _fcmToken;
+  String get fcmToken => _fcmToken ?? '';
+  bool hasFcmToken() => _fcmToken != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -86,6 +91,7 @@ class UserRecord extends FirestoreRecord {
     _currentDriverDelivery =
         snapshotData['current_driver_delivery'] as DocumentReference?;
     _currentDriverLocation = snapshotData['current_driver_location'] as LatLng?;
+    _fcmToken = snapshotData['fcm_token'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -133,6 +139,7 @@ Map<String, dynamic> createUserRecordData({
   DriverStatus? driverStatus,
   DocumentReference? currentDriverDelivery,
   LatLng? currentDriverLocation,
+  String? fcmToken,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -147,6 +154,7 @@ Map<String, dynamic> createUserRecordData({
       'driver_status': driverStatus,
       'current_driver_delivery': currentDriverDelivery,
       'current_driver_location': currentDriverLocation,
+      'fcm_token': fcmToken,
     }.withoutNulls,
   );
 
@@ -168,7 +176,8 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.mpCustomerId == e2?.mpCustomerId &&
         e1?.driverStatus == e2?.driverStatus &&
         e1?.currentDriverDelivery == e2?.currentDriverDelivery &&
-        e1?.currentDriverLocation == e2?.currentDriverLocation;
+        e1?.currentDriverLocation == e2?.currentDriverLocation &&
+        e1?.fcmToken == e2?.fcmToken;
   }
 
   @override
@@ -183,7 +192,8 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.mpCustomerId,
         e?.driverStatus,
         e?.currentDriverDelivery,
-        e?.currentDriverLocation
+        e?.currentDriverLocation,
+        e?.fcmToken
       ]);
 
   @override

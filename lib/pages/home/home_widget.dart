@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/active_driver/active_driver_widget.dart';
@@ -9,6 +10,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:badges/badges.dart' as badges;
@@ -50,6 +52,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.delivery =
           await DeliveryRecord.getDocumentOnce(FFAppState().deliveryCurrent!);
+      _model.deviceToken = await actions.getDeviceToken();
+
+      await currentUserReference!.update(createUserRecordData(
+        fcmToken: _model.deviceToken,
+      ));
     });
 
     animationsMap.addAll({

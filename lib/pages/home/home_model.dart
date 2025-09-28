@@ -14,6 +14,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   // Stores action output result for [Backend Call - Read Document] action in Home widget.
   DeliveryRecord? delivery;
+  // Stores action output result for [Custom Action - getDeviceToken] action in Home widget.
+  String? deviceToken;
   AudioPlayer? soundPlayer;
   // Model for AceptRoute component.
   late AceptRouteModel aceptRouteModel;
